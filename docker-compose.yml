@@ -11,7 +11,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - PYTHON_SERVICE_URL=http://python-service:8000
+      - PYTHON_SERVICE_URL=http://localhost:8000
       - FRONTEND_URL=http://localhost:3001
       - CACHE_TTL=300
       - CACHE_MAX_ITEMS=100
@@ -20,23 +20,23 @@ services:
       - .:/app
       - /app/node_modules
     command: npm run start:dev
-    depends_on:
-      - python-service
+    # depends_on:
+    #   - python-service
     networks:
       - geo-processor-network
 
-  python-service:
-    image: python-geo-processor:latest
-    ports:
-      - "8000:8000"
-    environment:
-      - ENVIRONMENT=development
-    networks:
-      - geo-processor-network
-    # Uncomment if you have the Python service built
-    # build:
-    #   context: ../geo-processor-python
-    #   dockerfile: Dockerfile
+  # python-service:
+  #   image: python-geo-processor:latest
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - ENVIRONMENT=development
+  #   networks:
+  #     - geo-processor-network
+  #   # Uncomment if you have the Python service built
+  #   # build:
+  #   #   context: ../geo-processor-python
+  #   #   dockerfile: Dockerfile
 
 networks:
   geo-processor-network:
